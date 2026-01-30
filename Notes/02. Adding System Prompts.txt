@@ -1,0 +1,63 @@
+import process from "process";
+import { ChatGroq } from "@langchain/groq";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+
+const model = new ChatGroq({
+  apiKey: process.env.GROQ_API_KEY,
+  model: "llama-3.1-8b-instant",
+  temperature: 0,
+});
+
+const prompt = ChatPromptTemplate.fromMessages([
+  ["system", "You are a senior AI engineer."],
+  ["human", "{input}"],
+]);
+
+const response = await prompt.pipe(model).invoke({
+  input: "Explain LangGraph",
+});
+console.log(response);
+
+
+/*
+AIMessage {
+    "content": "LangGraph is a graph-based language model that combines the strengths of graph neural networks (GNNs) and transformer models to achieve state-of-the-art performance in various natural language processing (NLP) tasks.\n\n**Key Components:**\n\n1. **Graph Construction:** LangGraph constructs a graph from the input text by representing words as nodes and their relationships as edges. The graph is built based on the syntax and semantics of the language, such as part-of-speech tags, dependencies, and named entity recognition.\n2. **Graph Neural Network (GNN):** LangGraph uses a GNN to process the graph and capture the complex relationships between words. The GNN is designed to learn the representation of each node (word) and its neighbors, which helps to capture the context and semantics of the text.\n3. **Transformer Encoder:** LangGraph incorporates a transformer encoder to process the node representations and generate a fixed-length vector representation of the input text. This vector representation is used as the input to the downstream tasks.\n4. **Graph Attention Mechanism:** LangGraph introduces a graph attention mechanism to selectively focus on the most relevant nodes and edges when computing the node representations. This helps to capture the most important relationships and context in the text.\n\n**Advantages:**\n\n1. **Improved Contextual Understanding:** LangGraph's graph-based approach allows it to capture complex relationships and context in the text, leading to improved performance on tasks such as question answering and text classification.\n2. **Flexibility:** LangGraph can be easily adapted to different NLP tasks and domains by modifying the graph construction and GNN architecture.\n3. **Scalability:** LangGraph's parallelizable architecture makes it suitable for large-scale NLP applications.\n\n**Applications:**\n\n1. **Question Answering:** LangGraph has been shown to achieve state-of-the-art performance on question answering tasks, such as SQuAD and TriviaQA.\n2. **Text Classification:** LangGraph has been used for text classification tasks, such as sentiment analysis and topic modeling.\n3. **Machine Translation:** LangGraph has been applied to machine translation tasks, such as English-to-French and English-to-Spanish translation.\n\n**Challenges:**\n\n1. **Computational Complexity:** LangGraph's graph-based approach can be computationally expensive, especially for large input texts.\n2. **Graph Construction:** The construction of the graph can be challenging, especially for languages with complex syntax and semantics.\n3. **Hyperparameter Tuning:** LangGraph's performance can be sensitive to hyperparameter tuning, which can be time-consuming and require expertise.\n\nOverall, LangGraph is a powerful language model that has shown impressive performance on various NLP tasks. However, its computational complexity and graph construction challenges need to be addressed to make it more practical for large-scale applications.",
+    "additional_kwargs": {},
+    "response_metadata": {
+      "tokenUsage": {
+        "completionTokens": 565,
+        "promptTokens": 46,
+        "totalTokens": 611
+      },
+      "finish_reason": "stop",
+      "id": "chatcmpl-896a67a0-9200-4744-8181-6ff9bd4c6793",
+      "object": "chat.completion",
+      "created": 1769667785,
+      "model": "llama-3.1-8b-instant",
+      "usage": {
+        "queue_time": 0.055882225,
+        "prompt_tokens": 46,
+        "prompt_time": 0.002383224,
+        "completion_tokens": 565,
+        "completion_time": 0.874509294,
+        "total_tokens": 611,
+        "total_time": 0.876892518
+      },
+      "usage_breakdown": null,
+      "system_fingerprint": "fp_4387d3edbb",
+      "x_groq": {
+        "id": "req_01kg46pvqfftjva32mep97h69m",
+        "seed": 1428690465
+      },
+      "service_tier": "on_demand",
+      "model_provider": "groq"
+    },
+    "tool_calls": [],
+    "invalid_tool_calls": [],
+    "usage_metadata": {
+      "input_tokens": 46,
+      "output_tokens": 565,
+      "total_tokens": 611
+    }
+  }
+*/

@@ -1,0 +1,20 @@
+import process from "process";
+import { ChatGroq } from "@langchain/groq";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+
+const model = new ChatGroq({
+  apiKey: process.env.GROQ_API_KEY,
+  model: "llama-3.1-8b-instant",
+  topP: 1,
+});
+
+const prompt = ChatPromptTemplate.fromMessages([
+  ["system", "You are a senior AI engineer."],
+  ["human", "{input}"],
+]);
+
+const response = await prompt.pipe(model).invoke({
+  input:
+    "Explain what is stop and stop sequence in large language models. Answer in broef and to the points with its usecase",
+});
+console.log(response);

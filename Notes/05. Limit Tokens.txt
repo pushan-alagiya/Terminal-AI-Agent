@@ -1,0 +1,64 @@
+import process from "process";
+import { ChatGroq } from "@langchain/groq";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+
+const model = new ChatGroq({
+  apiKey: process.env.GROQ_API_KEY,
+  model: "llama-3.1-8b-instant",
+  temperature: 0,
+  maxTokens: 200,
+});
+
+const prompt = ChatPromptTemplate.fromMessages([
+  ["system", "You are a senior AI engineer."],
+  ["human", "{input}"],
+]);
+
+const response = await prompt.pipe(model).invoke({
+  input:
+    "Explain what is max tokens in large language models. Answer in brief and to the points with its usecase",
+});
+console.log(response);
+
+/*
+AIMessage {
+  "content": "**Max Tokens in Large Language Models:**\n\nMax tokens, also known as maximum sequence length, is a parameter that limits the number of input tokens (e.g., words, characters, or subwords) a large language model can process at once.\n\n**Key Points:**\n\n1. **Input Limitation**: Max tokens restrict the length of input text to prevent the model from consuming excessive memory and computational resources.\n2. **Sequence Length**: It determines the maximum number of tokens (e.g., words, characters) the model can process in a single input sequence.\n3. **Performance Optimization**: By limiting the input length, max tokens help optimize model performance, reducing the risk of overfitting and improving training efficiency.\n\n**Use Cases:**\n\n1. **Text Summarization**: Max tokens help extract key points from long documents, summarizing the main ideas within a limited token budget.\n2. **Chatbots and Conversational AI**: Max tokens enable chatbots to respond to user queries within a",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "tokenUsage": {
+      "completionTokens": 200,
+      "promptTokens": 64,
+      "totalTokens": 264
+    },
+    "finish_reason": "length",
+    "id": "chatcmpl-d77de4e2-e70c-4138-8612-3f1722af01f2",
+    "object": "chat.completion",
+    "created": 1769670368,
+    "model": "llama-3.1-8b-instant",
+    "usage": {
+      "queue_time": 0.057533391,
+      "prompt_tokens": 64,
+      "prompt_time": 0.00834863,
+      "completion_tokens": 200,
+      "completion_time": 0.292913427,
+      "total_tokens": 264,
+      "total_time": 0.301262057
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_ff2b098aaf",
+    "x_groq": {
+      "id": "req_01kg495qakfbcsvva2p3jecwxa",
+      "seed": 2091730140
+    },
+    "service_tier": "on_demand",
+    "model_provider": "groq"
+  },
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "input_tokens": 64,
+    "output_tokens": 200,
+    "total_tokens": 264
+  }
+}
+*/

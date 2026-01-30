@@ -1,0 +1,55 @@
+import process from "process";
+import { ChatGroq } from "@langchain/groq";
+
+const model = new ChatGroq({
+  apiKey: process.env.GROQ_API_KEY,
+  model: "llama-3.1-8b-instant",
+  temperature: 0,
+});
+
+const response = await model.invoke("Explain LangChain in one sentence.");
+console.log(response.content);
+console.log(response);
+
+/*
+AIMessage {
+  "content": "LangChain is an open-source Python library that enables developers to build large language models (LLMs) into production-ready applications by providing a framework for chaining together multiple LLMs and other AI models to create more complex and powerful AI systems.",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "tokenUsage": {
+      "completionTokens": 49,
+      "promptTokens": 43,
+      "totalTokens": 92
+    },
+    "finish_reason": "stop",
+    "id": "chatcmpl-9519f00d-96b8-4268-80ae-50f68eef6b50",
+    "object": "chat.completion",
+    "created": 1769666892,
+    "model": "llama-3.1-8b-instant",
+    "usage": {
+      "queue_time": 0.04929303,
+      "prompt_tokens": 43,
+      "prompt_time": 0.002052086,
+      "completion_tokens": 49,
+      "completion_time": 0.109176486,
+      "total_tokens": 92,
+      "total_time": 0.111228572
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_f757f4b0bf",
+    "x_groq": {
+      "id": "req_01kg45vmbrftbb1gjxrkhjgej2",
+      "seed": 332218715
+    },
+    "service_tier": "on_demand",
+    "model_provider": "groq"
+  },
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "input_tokens": 43,
+    "output_tokens": 49,
+    "total_tokens": 92
+  }
+}
+*/

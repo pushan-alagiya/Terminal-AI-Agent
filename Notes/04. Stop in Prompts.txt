@@ -1,0 +1,65 @@
+import process from "process";
+import { ChatGroq } from "@langchain/groq";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+
+const model = new ChatGroq({
+  apiKey: process.env.GROQ_API_KEY,
+  model: "llama-3.1-8b-instant",
+  temperature: 0,
+  stop: ["\n\n"],
+});
+
+const prompt = ChatPromptTemplate.fromMessages([
+  ["system", "You are a senior AI engineer."],
+  ["human", "{input}"],
+]);
+
+const response = await prompt.pipe(model).invoke({
+  input:
+    "Explain what is stop in large language models. Answer in brief and to the points with its usecase",
+});
+console.log(response);
+
+
+/*
+AIMessage {
+  "content": "**Stop in Large Language Models:**",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "tokenUsage": {
+      "completionTokens": 303,
+      "promptTokens": 63,
+      "totalTokens": 366
+    },
+    "finish_reason": "stop",
+    "id": "chatcmpl-834d51d2-6fb8-47d3-ad86-13ee385bba74",
+    "object": "chat.completion",
+    "created": 1769669862,
+    "model": "llama-3.1-8b-instant",
+    "usage": {
+      "queue_time": 0.053871804,
+      "prompt_tokens": 63,
+      "prompt_time": 0.028417466,
+      "completion_tokens": 303,
+      "completion_time": 0.434331074,
+      "total_tokens": 366,
+      "total_time": 0.46274854
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_f757f4b0bf",
+    "x_groq": {
+      "id": "req_01kg48p8ybf2hbvkesbp8a8fen",
+      "seed": 1506107842
+    },
+    "service_tier": "on_demand",
+    "model_provider": "groq"
+  },
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "input_tokens": 63,
+    "output_tokens": 303,
+    "total_tokens": 366
+  }
+}
+*/
