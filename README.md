@@ -8,7 +8,9 @@
 
 ---
 
-## Features
+## Features & Architecture
+
+![Project Overview](https://github.com/pushan-alagiya/Terminal-AI-Agent/blob/main/Screenshots/architecture.svg?raw=true)
 
 - **Interactive Terminal Interface**: A user-friendly terminal-based interface for interacting with the AI assistant.
 - **Tool Integration**: Supports tools like `TavilySearch` for real-time web searches.
